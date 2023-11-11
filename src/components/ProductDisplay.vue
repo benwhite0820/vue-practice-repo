@@ -8,6 +8,8 @@ const { premium } = defineProps({
   premium: Boolean,
 });
 
+const emit = defineEmits(['add-to-cart']);
+
 const product = ref('Socks');
 const brand = ref('Vue Mastery');
 
@@ -30,7 +32,8 @@ const inStock = computed(
 
 const shipping = computed(() => (premium ? 'free' : 2.99));
 
-const addToCart = () => cart.value++;
+const addToCart = () =>
+  emit('add-to-cart', variants.value[selectedVariant.value].id);
 
 const updateVariant = (index) => {
   selectedVariant.value = index;
