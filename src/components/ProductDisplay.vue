@@ -1,5 +1,7 @@
 <script setup>
 import { ref } from 'vue';
+import ReviewForm from './ReviewForm.vue';
+import ReviewList from './ReviewList.vue';
 import socksGreenImage from '@/assets/socks_green.jpeg';
 import socksBlueImage from '@/assets/socks_blue.jpeg';
 import { computed } from '@vue/reactivity';
@@ -12,6 +14,7 @@ const emit = defineEmits(['add-to-cart']);
 
 const product = ref('Socks');
 const brand = ref('Vue Mastery');
+const reviews = ref([]);
 
 const selectedVariant = ref(0);
 
@@ -38,6 +41,8 @@ const addToCart = () =>
 const updateVariant = (index) => {
   selectedVariant.value = index;
 };
+
+const addReview = (review) => reviews.value.push(review);
 </script>
 
 <template>
@@ -73,5 +78,7 @@ const updateVariant = (index) => {
         </button>
       </div>
     </div>
+    <ReviewList :reviews="reviews"></ReviewList>
+    <ReviewForm @review-submitted="addReview"></ReviewForm>
   </div>
 </template>

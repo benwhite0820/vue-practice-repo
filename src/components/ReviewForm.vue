@@ -1,11 +1,24 @@
 <script setup>
 import { reactive } from 'vue';
 
+const emit = defineEmits(['review-submitted']);
+
 const review = reactive({ name: '', content: '', rating: null });
+
+const onSubmit = () => {
+  const reviewData = JSON.parse(JSON.stringify(review));
+  emit('review-submitted', reviewData);
+
+  Object.assign(review, {
+    name: '',
+    content: '',
+    rating: '',
+  });
+};
 </script>
 
 <template>
-  <form class="review-form">
+  <form class="review-form" @submit.prevent="onSubmit">
     <h3>Leave a review</h3>
     <label for="name">Name:</label>
     <input id="name" v-model="review.name" />
@@ -21,14 +34,7 @@ const review = reactive({ name: '', content: '', rating: null });
       <option>4</option>
       <option>5</option>
     </select>
+
+    <input type="submit" class="button" value="Submit" />
   </form>
 </template>
-
-<label for="rating">Rating:</label>
-<select id="rating" v-model.number="review.rating">
-  <option>1</option>
-  <option>2</option>
-  <option>3</option>
-  <option>4</option>
-  <option>5</option>
-</select>

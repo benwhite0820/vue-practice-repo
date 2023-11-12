@@ -1,5 +1,5 @@
 <script setup>
-import { ref, watch } from 'vue';
+import { ref } from 'vue';
 import ProductDisplay from '@/components/ProductDisplay.vue';
 
 const cart = ref([]);
